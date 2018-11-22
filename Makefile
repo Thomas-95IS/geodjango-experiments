@@ -12,9 +12,7 @@ install_geos:
 	wget https://download.osgeo.org/geos/geos-3.7.0.tar.bz2
 	tar xjf geos-3.7.0.tar.bz2
 
-	cd geos-3.7.0; /.configure
-  cd geos-3.7.0; make
-	cd geos-3.7.0; sudo make install
+	cd geos-3.7.0; /.configure; make; sudo make install
 
 install_proj4:
 	# install PROJ.4
@@ -33,6 +31,15 @@ install_gdal:
 
 	cd gdal-2.3.2; ./configure; make; sudo make install
 
+install_postgis:
+	wget http://postgis.net/stuff/postgis-2.5.2dev.tar.gz
+
+	tar xvfz postgis-2.5.2dev.tar.gz
+	cd postgis-2.5.2dev; ./configure; make; sudo make install
+
 download_data:
 	mkdir world/data
 	cd world/data; wget https://thematicmapping.org/downloads/TM_WORLD_BORDERS-0.3.zip; unzip TM_WORLD_BORDERS-0.3.zip
+
+create_db:
+	sudo -u postgres -i; createdb geodjango; psql geodjango; CREATE USER geodjango WITH SUPERUSER PASSWORD 'geodjango';
