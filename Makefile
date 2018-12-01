@@ -1,11 +1,18 @@
 create_virtualenv:
+	sudo apt install virtualenv
 	virtualenv geo-venv --python python3
 
-install_django:
-	pip install django
+install_atom:
+	curl -sL https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
+	sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
+	sudo apt-get update
+	sudo apt-get install atom
+
+install_python_requirements:
+	pip install -r requirements.txt
 
 install_base_geospatial_libraries:
-	sudo apt-get install binutils libproj-dev gdal-bin libgeoip1 python-gdal
+	sudo apt-get install build-essential binutils libproj-dev gdal-bin libgeoip1 python-gdal
 
 install_geos:
 	# install GEOS
@@ -32,14 +39,16 @@ install_gdal:
 	cd gdal-2.3.2; ./configure; make; sudo make install
 
 install_postgis:
-	wget http://postgis.net/stuff/postgis-2.5.2dev.tar.gz
-
-	tar xvfz postgis-2.5.2dev.tar.gz
-	cd postgis-2.5.2dev; ./configure; make; sudo make install
+	sudo apt-get install postgis
 
 download_data:
 	mkdir world/data
 	cd world/data; wget https://thematicmapping.org/downloads/TM_WORLD_BORDERS-0.3.zip; unzip TM_WORLD_BORDERS-0.3.zip
 
 create_db:
-	sudo -u postgres -i; createdb geodjango; psql geodjango; CREATE USER geodjango WITH SUPERUSER PASSWORD 'geodjango';
+	sudo -u postgres -i
+	createdb geodjango;
+	psql geodjango
+	CREATE USER geodjango;
+	ALTER ROLE geodjango with CREATEDB;
+	ALTER ROLE geodjango with ENCRYPTED PASSWORD 'geodjango';
