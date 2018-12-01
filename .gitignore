@@ -1,5 +1,9 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+
 **/data
-**/__pycache__
 **/geo-venv
 gdal-*
 geos-*
