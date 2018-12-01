@@ -49,6 +49,7 @@ create_db:
 	sudo -u postgres -i
 	createdb geodjango;
 	psql geodjango
+	CREATE EXTENSION postgis;
 	CREATE USER geodjango;
 	ALTER ROLE geodjango with CREATEDB;
 	ALTER ROLE geodjango with ENCRYPTED PASSWORD 'geodjango';
