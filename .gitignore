@@ -1,1 +1,7 @@
 **/data
+**/__pycache__
+**/geo-venv
+gdal-*
+geos-*
+postgis-*
+proj-*
