@@ -53,3 +53,8 @@ create_db:
 	CREATE USER geodjango;
 	ALTER ROLE geodjango with CREATEDB;
 	ALTER ROLE geodjango with ENCRYPTED PASSWORD 'geodjango';
+
+install_docker:
+	sudo apt-get install docker
+	sudo apt-get install docker-compose
+	sudo chown $USER:docker /var/run/docker.sock
