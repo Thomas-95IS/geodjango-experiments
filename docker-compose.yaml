@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  db:
+    image: mdillon/postgis
+    environment:
+      POSTGES_DB: geodjango
+      POSTGRES_USER: geodjango
+      POSTGRES_PASSWORD: geodjango
+      POSTGRES_PORT: 5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+volumes:
+  db-data:
