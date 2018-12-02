@@ -7,3 +7,6 @@ def geojson(request):
     layer = WorldBorder.objects.filter(name='United Kingdom')
     geojson = serialize('geojson', layer)
     return render(request, 'world/map.html', {'my_geojson': geojson})
+
+def googlemap(request):
+    return render(request, 'world/google-map.html')
